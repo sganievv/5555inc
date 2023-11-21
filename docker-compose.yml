@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+    # DB Service
+    db:
+        image: postgres:10
+        container_name: db_postgres
+        volumes:
+            - ./db_data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DB=${DB_DATABASE}
+        ports:
+            - "35432:5432"
+        networks:
+            - postgres-network
+networks:
+    postgres-network:
