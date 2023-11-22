@@ -55,6 +55,9 @@ Route::get('/khj', 'NewPageController@index')->name('khujand.index');
 
 Route::get('/storehouse/loads/release/{id}', 'StorehouseController@release')->name('storehouse.loads.release');
 
+// Добавляем новый маршрут для метода release
+Route::delete('storehouse/loads/{load}/release', 'Storehouse\LoadsController@release')
+    ->name('storehouse.loads.release');
 
 
 

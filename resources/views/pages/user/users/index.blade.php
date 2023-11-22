@@ -2,7 +2,6 @@
 
 @section('full-content')
     <div class="row">
-        <h2>Пользователи</h2>
         <div class="col-md-12 panel panel-primary">
             <form action="{{ route('user.users.index') }}" class="row panel-body" method="get">
                 <div class="col-md-2">
@@ -14,7 +13,6 @@
                     <label>{{ __('attributes.login') }}</label>
                     <input type="text" name="phone_number" class="form-control" value="{{ request()->input('phone_number') }}">
                 </div>
-
                 <div class="col-md-2">
                     <label>{{ __('attributes.role') }}</label>
                     <select class="form-control" id="role" name="role">
@@ -28,7 +26,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="col-md-2">
                     <label >&nbsp;</label>
                     <button type="submit" class="form-control btn btn-sm btn-group-sm btn-primary">
@@ -45,7 +42,7 @@
                 </div>
             </form>
         </div>
-
+        <h2>Пользователи</h2>
         <div class="col-md-12">
             <div class="row panel panel-default">
                 <div class="col-md-12 mt-4">

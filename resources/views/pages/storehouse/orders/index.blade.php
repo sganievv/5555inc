@@ -118,7 +118,7 @@
             </div>
 
             <div class="col-md-2 mt-3">
-                <a href="{{ route('storehouse.storehouses.index') }}" class="btn btn-warning form-control">
+                <a href="{{ route('home') }}" class="btn btn-warning form-control">
                     {{ __('nav.back') }}
                 </a>
             </div>

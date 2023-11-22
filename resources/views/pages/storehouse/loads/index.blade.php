@@ -64,12 +64,13 @@
                                 </td>
                                 <td>
 
-                                        @method('отпустить')
+                                    <form action="{{ route('storehouse.loads.release', $load->getId()) }}" method="post">
+                                        @method('delete')
                                         @csrf
-
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Отпустить?')">
-                                            {{ __('отпустить') }}
+                                            {{ __('Отпустить') }}
                                         </button>
+                                    </form>
 
                                 </td>
                             </tr>

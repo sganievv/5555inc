@@ -6,6 +6,7 @@
     <div class="col-md-4 col-md-offset-4">
         <div class="panel panel-default">
             <div class="panel-body row text-center">
+
                 @if(view()->exists(sprintf('components.menu.%s', auth()->user()->getRole())))
                     @include('components.menu.'.auth()->user()->getRole())
                 @endif

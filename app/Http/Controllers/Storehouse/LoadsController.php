@@ -158,5 +158,17 @@ class LoadsController extends DashboardController
 
         return redirect()->back();
     }
+    public function release(Load $load)
+    {
+        // Проверяем, имеет ли пользователь право на отпуск машины
+        if (auth()->check() && auth()->user()->storehouse_id != 1) {
+            // Удаляем машину из списка
+            $load->delete();
+            session()->flash('success', 'Машина успешно отпущена!');
+        } else {
+            session()->flash('error', 'Недостаточно прав для отпуска машины.');
+        }
 
+        return redirect()->route('storehouse.loads.index');
+    }
 }
