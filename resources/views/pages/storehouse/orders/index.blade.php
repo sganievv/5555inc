@@ -2,7 +2,10 @@
 
 @section('full-content')
     <div class="row">
-        <h2>Склад</h2>
+        <h2>
+            {{ __('constants.inventory', ['name' => request()->user()?->relationStorehouse?->getName()]) }}
+        </h2>
+
         <div class="col-md-12 panel panel-primary">
             <form action="{{ route('storehouse.orders.index') }}" class="row panel-body" method="get">
                 <div class="col-md-2">
@@ -35,17 +38,29 @@
 
                 {{--Table--}}
                 <div class="table-responsive col-md-12">
+                    @php
+                        $remainingTotal = 0; // инициализируем переменную для остатка
+                    @endphp
+
+                    @foreach($orders as $order)
+                        @if ($order->getInitialQuantity() == $order->getQuantity())
+                            @php
+                                $remainingTotal += $order->getTotalAmount(); // прибавляем сумму для товаров без изменения количества
+                            @endphp
+                        @endif
+                    @endforeach
+
                     <tr>
                         <th>{{ __('attributes.totals') }}:</th>
                         <td colspan="9">
-                            {{ $totalAmount }}
+                            {{ $remainingTotal }}
                             сомони
                         </td>
                     </tr>
                     <table class="table table-hover">
                         <tr>
                             <th style="width: 130px;">
-                                {{ __('attributes.id') }}
+                            {{ __('attributes.date') }}
                             </th>
                             <th>{{ __('attributes.name') }}</th>
                             <th>{{ __('attributes.quantity') }}</th>
@@ -60,23 +75,26 @@
 
                         @foreach($orders as $order)
                             <tr>
+                                <td>{{ $order->getCreatedAt() }}</td>
                                 <td>
-                                    {{ $order->getId() }}
-                                </td>
-                                <td>@if(auth()->check())
-                                        @if(auth()->user()->storehouse_id === 2)
-                                            <a href="{{ route('storehouse.orders.show', $order->getId()) }}">
-                                                <i class="glyphicon glyphicon-eye-open"></i>
-                                                {{ $order->getName() }}
-                                            </a>
-                                        @else
+                                    @if(request()->user()->getStorehouseId() == 2)
+                                        <a href="{{ route('storehouse.orders.show', $order->getId()) }}">
+                                            <i class="glyphicon glyphicon-eye-open"></i>
                                             {{ $order->getName() }}
-                                        @endif
+                                        </a>
+                                    @else
+                                        {{ $order->getName() }}
                                     @endif
                                 </td>
                                 <td>{{ $order->getQuantity() }}</td>
                                 <td>{{ $order->getWeight() }} {{ $order->getUnit() }}</td>
-                                <td>{{ $order->getTotalAmount() }}</td>
+                                <td>
+                                    @if ($order->getInitialQuantity() != $order->getQuantity())
+                                        Остаток
+                                    @else
+                                        {{ $order->getTotalAmount() }}
+                                    @endif
+                                </td>
                                 <td>
                                     {{ $order->getClientName() }}
                                 </td>
@@ -87,19 +105,22 @@
                                     {{ $order->getClientNumber() }}
                                 </td>
 
+
                                 <td>
-                                    {{ $order->relationUser->getName() }}
+                                    {{ optional($order->relationUser)->getName() }}
                                 </td>
                                 <td>
-                                    @if(auth()->check() && auth()->user()->storehouse_id !=2)
-                                    <a href="{{ route('storehouse.orders.edit', $order->getId()) }}">
-                                        <i class="glyphicon glyphicon-pencil"></i>
-                                        {{ __('base.edit') }}
-                                        @endif
-                                    </a>
+                                    @if(request()->user()->getStorehouseId() == 1)
+                                        <a href="{{ route('storehouse.orders.edit', $order->getId()) }}">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                            {{ __('base.edit') }}
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
+                    </table>
+
                     </table>
                 </div>
 
@@ -112,16 +133,26 @@
         <div class="col-md-12 row">
             <div class="col-md-2 mt-3">
 
-                <a href="{{ route('storehouse.orders.archive') }}" class="btn btn-primary form-control">
+
+                <a href="{{ route('storehouse.orders.archive', ['storehouse_id' => request()->get('storehouse_id')]) }}" class="btn btn-primary form-control">
                     {{ __('base.archive') }}
                 </a>
+
             </div>
 
             <div class="col-md-2 mt-3">
-                <a href="{{ route('home') }}" class="btn btn-warning form-control">
-                    {{ __('nav.back') }}
-                </a>
+                @if(auth()->user()->storehouse_id)
+                    <a href="{{ route('home') }}" class="btn btn-warning form-control">
+                        {{ __('nav.back') }}
+                    </a>
+                @else
+                    <a href="{{ route('storehouse.storehouses.index') }}" class="btn btn-warning form-control">
+                        {{ __('nav.back') }}
+                    </a>
+                @endif
             </div>
+
+
         </div>
     </div>
 @endsection

@@ -9,6 +9,7 @@ use Domain\User\Entities\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * Class Order.php
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property float $total_amount
  * @property bool $is_taken
  * @property ?string $comments
+ * @property ?string $created_at
  *
  * Mixins:
  * @mixin OrderBuilder
@@ -148,5 +150,10 @@ class Order extends Entities
     public function getComments(): ?string
     {
         return $this->comments;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
     }
 }

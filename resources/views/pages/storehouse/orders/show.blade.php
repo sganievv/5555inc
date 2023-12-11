@@ -20,7 +20,7 @@
 
         <div class="col-md-12">
             <label>{{ __('attributes.manager') }}:</label>
-            {{ $order->relationUser->getName() }}
+            {{ optional($order->relationUser)->getName() }}
         </div>
 
         <div class="col-md-12">
@@ -80,7 +80,9 @@
                             Посылка передана клиенту
                         </div>
                     @endif
-                    <div class="col-md-2 mt-3">
+
+
+                        <div class="col-md-2 mt-3">
                         <a href="{{ route('storehouse.orders.index') }}" class="btn btn-warning form-control">
                             {{ __('nav.back') }}
                         </a>

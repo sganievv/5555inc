@@ -8,16 +8,19 @@
                 <select class="form-control" wire:model.live="trackingNumber">
                     <option value="tracking-number"></option>
                     @foreach ($orders as $order)
-                        <option value="{{ $order->getTrackingNumber() }}">
-                            {{ sprintf(' %s |%s |сумма: %s| Кол-во: %s| Объем: %s%s|',
-                                $order->getName(),
-                                $order->getClientCity(),
-                                $order->getPrice(),
-                                $order->getQuantity(),
-                                $order->getWeight(),
-                                $order->getUnit()
+                        @if (!in_array($order->getTrackingNumber(), $selectedTrackingNumbers))
+                            <!-- Проверка, не был ли товар уже выбран -->
+                            <option value="{{ $order->getTrackingNumber() }}">
+                                {{ sprintf(' %s |%s |сумма: %s| Кол-во: %s| Объем: %s%s|',
+                                    $order->getName(),
+                                    $order->getClientCity(),
+                                    $order->getPrice(),
+                                    $order->getQuantity(),
+                                    $order->getWeight(),
+                                    $order->getUnit()
                                 ) }}
-                        </option>
+                            </option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -35,7 +38,6 @@
                         <b>{{ __('attributes.total') }}: {{ $totalAmount   }}</b>
                     </td>
                     <tr>
-                        <th>{{ __('attributes.id') }}</th>
                         <th>{{ __('attributes.name') }}</th>
                         <th>{{ __('attributes.city') }}</th>
                         <th>{{ __('attributes.quantity') }}</th>
@@ -46,9 +48,6 @@
                     </tr>
                     @foreach($items as $id => $order)
                         <tr>
-                            <th>
-                                {{ $order->getId() }}
-                            </th>
                             <td>
                                 {{ $order->getName() }}
                             </td>
@@ -59,7 +58,7 @@
                                 <input type="hidden" name="orders[{{$id}}][order_id]" value="{{ $order->getId() }}">
                                 <input type="hidden" name="orders[{{$id}}][tracking_number]" value="{{ $order->getTrackingNumber() }}">
 
-                                <input type="text"
+                                <input type="text" style="width: 50px;"
                                        name="orders[{{$id}}][quantity]"
                                        value="{{ $order->getQuantity() }}">
                             </td>

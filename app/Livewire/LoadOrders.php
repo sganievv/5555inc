@@ -26,6 +26,10 @@ class LoadOrders extends Components
             unset($this->items[$i]);
     }
 
+    public array $selectedTrackingNumbers = []; // Добавленная переменная
+
+
+
     public function addOrder()
     {
         $order = Order::query()
@@ -33,13 +37,17 @@ class LoadOrders extends Components
             ->whereIsTaken(0)
             ->whereTrackingNumber($this->trackingNumber);
 
-        if(request()->user()->getStorehouseId())
+        if (request()->user()->getStorehouseId()) {
             $order = $order->whereStorehouseId(request()->user()->getStorehouseId());
+        }
 
         $order = $order->first();
 
-        if(!is_null($order)){
+        if (!is_null($order)) {
             $this->items[$order->getId()] = $order;
+
+            // Обновим список выбранных номеров отслеживания
+            $this->selectedTrackingNumbers[] = $this->trackingNumber;
         }
     }
 

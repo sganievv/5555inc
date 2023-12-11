@@ -91,7 +91,8 @@ class OrderBuilder extends Builders
                 orders.price,
                 orders.total_amount,
                 orders.is_taken,
-                orders.comments
+                orders.comments,
+                orders.created_at
             ')
             ->whereRaw(sprintf('COALESCE(orders.quantity - load_orders.total, orders.quantity) %s  %s', $sign, $quantity));
     }

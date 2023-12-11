@@ -85,4 +85,12 @@ class StorehousesController extends DashboardController
         // После отпуска перенаправьте пользователя на страницу с машинами
         return redirect()->route('storehouse.loads.index')->with('success', 'Машина успешно отпущена.');
     }
+
+    public function change_state(Request $request, $orderId)
+    {
+        // Ваш код изменения состояния заказа
+
+        return redirect()->route('cashier.index');
+    }
+
 }

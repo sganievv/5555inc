@@ -10,17 +10,17 @@
                 <div class="col-md-12 row">
                     <div class="col-md-12">
                         <label>{{ __('attributes.fio') }}</label>
-                        <input type="text" name="name" placeholder="Name" class="form-control" required value="{{ old('name') }}">
+                        <input type="text" name="name" placeholder="ФИО" class="form-control" required value="{{ old('name') }}">
                     </div>
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.login') }}</label>
-                        <input type="text" name="login" class="form-control" required value="{{ old('login') }}">
+                        <input type="text" name="login" placeholder="Логин" class="form-control" required value="{{ old('login') }}">
                     </div>
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.phone_number') }}</label>
-                        <input type="text" name="phone_number" class="form-control" required value="{{ old('phone_number') }}">
+                        <input type="text" name="phone_number" placeholder="Номер телефона" class="form-control" required value="{{ old('phone_number') }}">
                     </div>
 
                     <div class="col-md-12 mt-3">
@@ -42,12 +42,12 @@
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.password') }}</label>
-                        <input type="password" name="password" class="form-control" required>
+                        <input type="text" name="password" placeholder="Пароль" class="form-control" required>
                     </div>
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.password_confirm') }}</label>
-                        <input type="password" name="password_confirm" required class="form-control">
+                        <input type="text" name="password_confirm" placeholder="Пароль" required class="form-control">
                     </div>
 
                     <div class="col-md-12 row">

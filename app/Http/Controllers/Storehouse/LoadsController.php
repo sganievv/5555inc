@@ -51,13 +51,15 @@ class LoadsController extends DashboardController
 
     public function index(IndexRequest $request)
     {
+
+
         $params = $request->validated();
 
         $loads = $this->load
             ->withRelations(['relationStorehouseFrom', 'relationStorehouseTo'])
-            ->filterByParams($params)
             ->orderBy('id', 'desc')
             ->paginate(18);
+
 
         return view('pages.storehouse.loads.index', [
             'loads' => $loads,
@@ -89,7 +91,7 @@ class LoadsController extends DashboardController
     public function edit(Load $load, EditRequest $request)
     {
         $loadOrders = $load->relationOrders
-            ->mapWithKeys(function ($item){
+            ->mapWithKeys(function ($item) {
                 return [$item->getOrderId() => $item];
             });
 
@@ -105,9 +107,11 @@ class LoadsController extends DashboardController
 
         return view('pages.storehouse.loads.edit', [
             'load' => $load,
-            'items' => $items
+            'items' => $items  // Передаем переменную $items в представление
         ]);
+
     }
+
 
     public function update(Load $load, UpdateRequest $request)
     {
@@ -118,6 +122,7 @@ class LoadsController extends DashboardController
 
     public function accept_order(LoadOrder $loadOrder, AcceptOrderRequest $request)
     {
+
         $load = $loadOrder->relationLoad;
 
         $order = $this->order
@@ -165,10 +170,11 @@ class LoadsController extends DashboardController
             // Удаляем машину из списка
             $load->delete();
             session()->flash('success', 'Машина успешно отпущена!');
-        } else {
-            session()->flash('error', 'Недостаточно прав для отпуска машины.');
+
         }
 
         return redirect()->route('storehouse.loads.index');
     }
+
+
 }

@@ -79,4 +79,6 @@ class LoadOrder extends Entities
     {
         return $this->is_accepted ?? false;
     }
+
+
 }

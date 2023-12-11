@@ -75,6 +75,20 @@ class OrdersController extends DashboardController
             'orders' => $orders,
         ]);
     }
+    public function destroy(Order $order)
+    {
+        // Проверяем, существует ли заказ
+        if (!$order) {
+            return redirect()->route('storehouse.orders.archive')->with('error', 'Order not found.');
+        }
+
+        // Удаляем заказ
+        $order->delete();
+
+        return redirect()->route('storehouse.orders.archive')->with('success', 'удалено');
+    }
+
+
 
     public function create(CreateRequest $request)
     {
@@ -88,6 +102,34 @@ class OrdersController extends DashboardController
 
         return redirect()->route('storehouse.orders.create', $order->getId());
 
+    }
+
+    public function acceptOrder($orderId)
+    {
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return redirect()->route('storehouse.orders.index')->with('error', 'Order not found.');
+        }
+
+        if ($order->getIsAccepted()) {
+            return redirect()->route('storehouse.orders.index')->with('error', 'Order has already been accepted.');
+        }
+
+        // Сохраняем остаток товара перед изменением количества
+        $remainingQuantity = $order->getQuantity();
+
+        // Принимаем товар
+        $order->setIsAccepted(true);
+        $order->save();
+
+        // Если это остаток, обновляем остаток в складе
+        if ($order->getInitialQuantity() != $remainingQuantity) {
+            $order->setQuantity($remainingQuantity);
+            $order->save();
+        }
+
+        return redirect()->route('storehouse.orders.index')->with('success', 'Order accepted successfully.');
     }
 
 
@@ -118,4 +160,5 @@ class OrdersController extends DashboardController
 
         return redirect()->route('storehouse.orders.show', $order->getId());
     }
+
 }

@@ -37,7 +37,7 @@
                     <table class="table table-hover">
                         <tr>
                             <th style="width: 130px;">
-                                {{ __('attributes.id') }}
+                            {{ __('attributes.date') }}
                             </th>
                             <th>{{ __('attributes.name') }}</th>
                             <th>{{ __('attributes.quantity') }}</th>
@@ -52,9 +52,7 @@
 
                         @foreach($orders as $order)
                             <tr>
-                                <td>
-                                    {{ $order->getId() }}
-                                </td>
+                                <td>{{ $order->getCreatedAt() }}</td>
                                 <td>
                                     {{ $order->getName() }}
                                 </td>
@@ -72,7 +70,21 @@
                                 </td>
 
                                 <td>
-                                    {{ $order->relationUser->getName() }}
+                                    {{ optional($order->relationUser)->getName() }}
+                                </td>
+
+                                <td>
+                                    @if(auth()->user()->getStorehouseId() != $order->getStorehouseId())
+                                    <form method="POST" action="{{ route('storehouse.orders.destroy', $order->getId()) }}">
+                                        @method('DELETE')
+                                        @csrf
+
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                            {{ __('base.delete') }}
+                                        </button>
+                                    </form>
+                                    @endif
                                 </td>
 
                             </tr>
@@ -88,9 +100,10 @@
 
         <div class="col-md-12 row">
             <div class="col-md-2 mt-3">
-                <a href="{{ route('storehouse.orders.index') }}" class="btn btn-warning form-control">
+                <a href="{{ route('storehouse.orders.index', ['storehouse_id' => request()->get('storehouse_id')]) }}" class="btn btn-warning form-control">
                     {{ __('nav.back') }}
                 </a>
+
             </div>
         </div>
     </div>
