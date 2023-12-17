@@ -44,12 +44,12 @@
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.password') }}</label>
-                        <input type="password" name="password" placeholder="Password" id="password" class="form-control">
+                        <input type="text" name="password" placeholder="Пароль" id="password" class="form-control">
                     </div>
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.password_confirm') }}</label>
-                        <input type="password" name="password_confirm" placeholder="Password" id="password_confirm" class="form-control">
+                        <input type="text" name="password_confirm" placeholder="Пароль" id="password_confirm" class="form-control">
                     </div>
 
                     <div class="col-md-12 row">

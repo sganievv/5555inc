@@ -79,4 +79,9 @@ class LoadOrder extends Entities
     {
         return $this->is_accepted ?? false;
     }
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
 }

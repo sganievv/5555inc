@@ -47,9 +47,6 @@ Route::middleware('auth')->group(function (){
     });
 });
 
-// routes/web.php
-
-Route::get('/khj', 'NewPageController@index')->name('khujand.index');
 
 // routes/web.php
 
@@ -59,7 +56,5 @@ Route::get('/storehouse/loads/release/{id}', 'StorehouseController@release')->na
 Route::delete('storehouse/loads/{load}/release', 'Storehouse\LoadsController@release')
     ->name('storehouse.loads.release');
 
-
-
-
+Route::delete('/storehouse/orders/delete/{orderId}', 'OrdersController@deleteOrder')->name('storehouse.orders.delete');
 

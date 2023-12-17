@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Load extends Entities
 {
     use SoftDeletes;
-    
+
     protected $table = 'loads';
 
     protected $guarded = [];

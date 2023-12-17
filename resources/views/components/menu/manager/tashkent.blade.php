@@ -15,3 +15,9 @@
         {{ __('nav.loads') }}
     </a>
 </div>
+
+<div class="col-md-12 mt-3">
+    <a href="{{ route('storehouse.loads.index') }}" class="btn btn-lg btn-danger" style="width: 100%">
+        {{ __('Машины') }}
+    </a>
+</div>

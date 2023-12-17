@@ -2,9 +2,13 @@
 
 @section('full-content')
     <div class="row">
-        <h2>Склады</h2>
-        <div class="col-md-12 panel panel-primary">
-            <form action="{{ route('storehouse.storehouses.index') }}" class="row panel-body" method="get">
+        <div class="col-md-12 panel panel-default">
+            <button id="toggleSearchForm" class="btn btn-sm btn-group-sm btn-primary">
+                <i class="glyphicon glyphicon-search"></i>
+                Поиск
+            </button>
+
+            <form action="{{ route('storehouse.storehouses.index') }}" class="row panel-body" method="get" id="searchForm" style="display: none;">
                 <div class="col-md-2">
                     <label>{{ __('attributes.id') }}</label>
                     <input type="text" name="id" class="form-control" value="{{ request()->input('id') }}">
@@ -21,7 +25,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label >&nbsp;</label>
+                    <label>&nbsp;</label>
                     <button type="submit" class="form-control btn btn-sm btn-group-sm btn-primary">
                         <i class="glyphicon glyphicon-filter"></i>
                         {{ __('base.filter') }}
@@ -37,7 +41,19 @@
             </form>
         </div>
 
-        <div class="col-md-12">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#toggleSearchForm").click(function () {
+                $("#searchForm").toggle();
+            });
+        });
+    </script>
+
+
+    <div class="col-md-12">
+            <h2>Склады</h2>
             <div class="row panel panel-default">
                 <div class="col-md-12 mt-4">
                     {{ $storehouses->appends(request()->all())->links() }}
@@ -82,17 +98,16 @@
             </div>
         </div>
 
-        <div class="col-md-12 row">
-            <div class="col-md-2 mt-3">
-                <a href="{{ route('storehouse.storehouses.create') }}" class="btn btn-success form-control">
-                    {{ __('base.create') }}
-                </a>
-            </div>
-            <div class="col-md-2 mt-3">
-                <a href="{{ route('home') }}" class="btn btn-warning form-control">
-                    {{ __('nav.back') }}
-                </a>
-            </div>
+    <div class="col-md-12 row">
+        <div class="col-md-2 mt-3">
+            <a href="{{ route('storehouse.storehouses.create') }}" class="btn btn-success form-control">
+                {{ __('base.create') }}
+            </a>
+        </div>
+        <div class="col-md-2 mt-3">
+            <a href="{{ route('home') }}" class="btn btn-warning form-control">
+                {{ __('nav.back') }}
+            </a>
         </div>
     </div>
 @endsection

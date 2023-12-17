@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
 @section('full-content')
+
     <div class="row">
-        <div class="col-md-12 panel panel-primary">
-            <form action="{{ route('user.users.index') }}" class="row panel-body" method="get">
+
+            <button id="showSearchForm" class="btn btn-sm btn-group-sm btn-primary">
+                <i class="glyphicon glyphicon-search"></i>
+                Поиск
+            </button>
+
+            <form action="{{ route('user.users.index') }}" class="row panel-body" method="get" id="searchForm" style="display: none;">
                 <div class="col-md-2">
                     <label>{{ __('attributes.fio') }}</label>
                     <input type="text" name="name" class="form-control" value="{{ request()->input('name') }}">
@@ -13,6 +19,7 @@
                     <label>{{ __('attributes.login') }}</label>
                     <input type="text" name="phone_number" class="form-control" value="{{ request()->input('phone_number') }}">
                 </div>
+
                 <div class="col-md-2">
                     <label>{{ __('attributes.role') }}</label>
                     <select class="form-control" id="role" name="role">
@@ -20,12 +27,12 @@
                         @foreach(config('constants.roles') as $role)
                             <option value="{{ $role }}"
                                 {{ $role == request()->input('role') ? 'selected' : '' }}>
-
-                                <label>{{ __('attributes.'.$role) }}</label>
+                                {{ __('attributes.'.$role) }}
                             </option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="col-md-2">
                     <label >&nbsp;</label>
                     <button type="submit" class="form-control btn btn-sm btn-group-sm btn-primary">
@@ -42,9 +49,22 @@
                 </div>
             </form>
         </div>
-        <h2>Пользователи</h2>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#showSearchForm").click(function () {
+                $("#searchForm").toggle();
+            });
+        });
+    </script>
+
+
+    <h2>Пользователи</h2>
         <div class="col-md-12">
             <div class="row panel panel-default">
+
                 <div class="col-md-12 mt-4">
                     {{ $users->appends(request()->all())->links() }}
                 </div>

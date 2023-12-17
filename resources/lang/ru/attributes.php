@@ -5,7 +5,7 @@ return [
     'login' => 'Логин',
     'fio' => 'ФИО',
     'name' => 'Название',
-    'phone_number' => 'Номер тел.',
+    'phone_number' => 'Номер телелефона',
     'role' => 'Роль',
     'client' => 'Клиент',
     'client info'=> 'Данные клиента',

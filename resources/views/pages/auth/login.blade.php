@@ -35,7 +35,6 @@
                         <div class="col-md-12 text-center">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('nav.sign-in') }}
-                            </button>
 
                             @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">

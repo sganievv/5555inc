@@ -35,9 +35,8 @@
 
                     <div class="col-md-12 mt-3">
                         <label>{{ __('attributes.name') }}</label>
-                        <input type="text" name="name" class="form-control" required value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control" required value="{{ old('name') }}" onkeydown="if(event.key === 'Enter') { event.preventDefault(); this.blur(); }">
                     </div>
-
                     <div class="col-md-12">
                         <livewire:price-calculator />
                     </div>
@@ -66,4 +65,18 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loadForm').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Предотвращаем действие по умолчанию (отправку формы)
+                }
+            });
+
+            document.getElementById('submitButton').addEventListener('click', function () {
+                document.getElementById('loadForm').submit(); // Запускаем отправку формы при клике на кнопку
+            });
+        });
+    </script>
 @endsection

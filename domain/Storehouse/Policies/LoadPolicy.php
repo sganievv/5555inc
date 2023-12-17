@@ -32,6 +32,7 @@ class LoadPolicy extends Policies
         return $user->getRole() == 'manager' && ($user->getStorehouseId() == 2 || $user->getStorehouseId() == 3);
     }
 
+
     public function create(User $user): bool
     {
         return $user->getRole() == 'manager' && ($user->getStorehouseId() == 1 || $user->getStorehouseId() == 2);

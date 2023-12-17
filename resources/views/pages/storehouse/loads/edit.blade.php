@@ -14,14 +14,12 @@
                         <input type="text" name="car" class="form-control" required value="{{ $load->getCar() }}">
                     </div>
 
-                    <div class="col-md-12 mt-3">
-                        <label>{{ __('attributes.from_storehouse') }}</label>
-                        <livewire:storehouses-select :atrName="'storehouse_from_id'" :selectedId="$load->getStorehouseFromId()"/>
+                    <div class="col-md-12">
+                        <input type="hidden" name="storehouse_from_id" value="{{ request()->user()->getStorehouseId() }}">
                     </div>
 
-                    <div class="col-md-12 mt-3">
-                        <label>{{ __('attributes.to_storehouse') }}</label>
-                        <livewire:storehouses-select :atrName="'storehouse_to_id'" :selectedId="$load->getStorehouseToId()"/>
+                    <div class="col-md-12">
+                        <input type="hidden" name="storehouse_to_id" value="{{ request()->user()->getStorehouseId() + 1}}">
                     </div>
                 </div>
 

@@ -30,4 +30,5 @@ class LoadOrderBuilder extends Builders
     {
         return $this->where('tracking_number', '=', $trackingNumber);
     }
+
 }

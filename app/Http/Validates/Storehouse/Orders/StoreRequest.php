@@ -33,7 +33,7 @@ class StoreRequest extends Validates
             'quantity' => 'required|numeric',
             'weight' => 'required|numeric',
             'unit' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/' ,
             'comments' => 'nullable|string',
             'total_amount' => 'required|numeric',
         ];
